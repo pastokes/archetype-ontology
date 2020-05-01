@@ -8,10 +8,12 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:arche="http://archetype.ink/current/"
      xmlns:bibma="https://w3id.org/bibma/"
      xmlns:current="http://erlangen-crm.org/current/"
      xmlns:efrbroo="http://erlangen-crm.org/efrbroo/">
-    <owl:Ontology rdf:about="https://w3id.org/bibma/">
+    <owl:Ontology rdf:about="http://archetype.ink/current/">
+        <owl:versionIRI rdf:resource="urn:absolute:current"/>
         <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">This is a first version of an implementation of the Archetype ontology applied specifically to manuscript books. It builds on the &apos;Florus&apos; implementation of the Biblissima ontology (https://doc.biblissima.fr/ontologie-biblissima) which in turn is based on the Erlangen implementation of FRBRoo. It also includes some classes from the CRMtex extension to the CIDOC-CRM (http://www.cidoc-crm.org/crmtex/).
 
 This is a work in progress. Comments and suggestions are welcome.
@@ -2879,43 +2881,6 @@ Note: To describe the relation between a preparatory manuscript and the final ma
     
 
 
-    <!-- http://archetype.ink/arch_Ontograph -->
-
-    <owl:Class rdf:about="http://archetype.ink/arch_Ontograph">
-        <rdfs:subClassOf rdf:resource="http://erlangen-crm.org/current/E33_Linguistic_Object"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P138i_is_represented_by"/>
-                <owl:someValuesFrom rdf:resource="http://archetype.ink/current/arch_Character"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
-        <rdfs:comment xml:lang="en">Scope note:
-         This class comprises the sign (letter, punctuation etc.) in its linguistic aspect. It is essentially equivalent to the grapheme but applies more generally (given also difficulties in defining &apos;grapheme&apos;). This class is intended to be independent of any physical or visual aspect of the sign.
-
-         Examples:
-         - The grapheme &lt;a&gt;.
-         - The punctuation sign that indicates a question in modern English &lt;?&gt;</rdfs:comment>
-        <rdfs:label xml:lang="en">arch Ontograph</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://archetype.ink/arch_Scribe -->
-
-    <owl:Class rdf:about="http://archetype.ink/arch_Scribe">
-        <rdfs:subClassOf rdf:resource="http://erlangen-crm.org/current/E21_Person"/>
-        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
-        <rdfs:comment xml:lang="en">Scope note:
-         A historical person, presumed or identified, responsible for writing text on an object in some way at some point in time.
-
-         Examples:
-         - Eadwig Basan, the eleventh-century English scribe who wrote the main part of London, British Library, Arundel MS 155.</rdfs:comment>
-        <rdfs:label xml:lang="en">arch Scribe</rdfs:label>
-    </owl:Class>
-    
-
-
     <!-- http://archetype.ink/current/arch_Allograph -->
 
     <owl:Class rdf:about="http://archetype.ink/current/arch_Allograph">
@@ -2951,7 +2916,7 @@ Note: To describe the relation between a preparatory manuscript and the final ma
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P138_represents"/>
-                <owl:someValuesFrom rdf:resource="http://archetype.ink/arch_Ontograph"/>
+                <owl:someValuesFrom rdf:resource="http://archetype.ink/current/arch_Ontograph"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -2968,6 +2933,29 @@ Note: To describe the relation between a preparatory manuscript and the final ma
          - Latin a and A are two distinct Characters representing the E33 Linguistic Object (arch Onotograph) &lt;a&gt;.
          - In Greek, &apos;minuscule sigma&apos; is a Character, represented by the Allographs σ, ς, and the lunate form.</rdfs:comment>
         <rdfs:label xml:lang="en">arch Character</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://archetype.ink/current/arch_Current_Item -->
+
+    <owl:Class rdf:about="http://archetype.ink/current/arch_Current_Item">
+        <rdfs:subClassOf rdf:resource="http://erlangen-crm.org/efrbroo/F4_Manifestation_Singleton"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/bibma/Manuscript"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P46_is_composed_of"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://archetype.ink/current/arch_Item_Part"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
+        <rdfs:comment xml:lang="en">Scope notes:
+         This class comprises text-bearing objects (F4 Manifestation Singletons) as they exist today, for instance in a library or museum. The codicological structure of the Current Item may be different from that of the object as it was first produced (the arch Historical Item), in which case the different codicological units can be modelled by the arch Item Part.
+
+         Examples:
+         - The manuscript known as Cambridge, Corpus Christi College MS 162, which is made up of what was once two different manuscripts.</rdfs:comment>
+        <rdfs:label xml:lang="en">arch Current Item</rdfs:label>
     </owl:Class>
     
 
@@ -3018,6 +3006,29 @@ Note: To describe the relation between a preparatory manuscript and the final ma
     
 
 
+    <!-- http://archetype.ink/current/arch_Historical_Item -->
+
+    <owl:Class rdf:about="http://archetype.ink/current/arch_Historical_Item">
+        <rdfs:subClassOf rdf:resource="http://erlangen-crm.org/efrbroo/F4_Manifestation_Singleton"/>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/bibma/Manuscript"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P46_is_composed_of"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onClass rdf:resource="http://archetype.ink/current/arch_Item_Part"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
+        <rdfs:comment xml:lang="en">Scope notes:
+         This class comprises text-bearing objects (F4 Manifestation Singletons) as they existed at some point in the past, for instance after their production (E12) but before any substantial codicological modification. The codicological structure of the Historical Item may therefore be different from that of the object as it exists today (the arch Current Item), in which case the different codicological units can be modelled by the arch Item Part.
+
+         Examples:
+         - The book of homilies produced in the eleventh century, described by Gneuss, Handlist no. 50, and now comprising Cambridge, Corpus Christi College MS 162, pp. 1–138 + 161–564.</rdfs:comment>
+        <rdfs:label xml:lang="en">arch Historical Item</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- http://archetype.ink/current/arch_Idiograph -->
 
     <owl:Class rdf:about="http://archetype.ink/current/arch_Idiograph">
@@ -3043,6 +3054,64 @@ Note: To describe the relation between a preparatory manuscript and the final ma
          - Italic a as written by archbishop Matthew Parker.
          - Final ς as written by the Byzantine scholar John Tzetzes .</rdfs:label>
         <rdfs:label xml:lang="en">arch Idiograph</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://archetype.ink/current/arch_Item_Part -->
+
+    <owl:Class rdf:about="http://archetype.ink/current/arch_Item_Part">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/bibma/Folio_Extent"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P56_bears_feature"/>
+                <owl:someValuesFrom rdf:resource="http://archetype.ink/current/arch_Graph"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
+        <rdfs:comment xml:lang="en">Scope notes:
+         This class comprises codicological units (bibma Folio Extent) which once made up arch Current Item and arch Historical Items. This is a physical part of the object which normally comprises the different parts of a Historical Item that were broken up and rearranged to form a Current Item. If no such codicological modification occurred then the Item Part comprises the extent of the entire Historical Item (and, by definition therefore, the Current Item).
+
+         Examples:
+         - The Current Item Cambridge, Corpus Christi College MS 162, comprises two Item Parts: one is pp. 1–138 + 161–564 which were once part of a book of homilies, and the other is pp. 138-160 which were once part of a copy of the Hexameron.</rdfs:comment>
+        <rdfs:label xml:lang="en">arch Item Part</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://archetype.ink/current/arch_Ontograph -->
+
+    <owl:Class rdf:about="http://archetype.ink/current/arch_Ontograph">
+        <rdfs:subClassOf rdf:resource="http://erlangen-crm.org/current/E33_Linguistic_Object"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P138i_is_represented_by"/>
+                <owl:someValuesFrom rdf:resource="http://archetype.ink/current/arch_Character"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
+        <rdfs:comment xml:lang="en">Scope note:
+         This class comprises the sign (letter, punctuation etc.) in its linguistic aspect. It is essentially equivalent to the grapheme but applies more generally (given also difficulties in defining &apos;grapheme&apos;). This class is intended to be independent of any physical or visual aspect of the sign.
+
+         Examples:
+         - The grapheme &lt;a&gt;.
+         - The punctuation sign that indicates a question in modern English &lt;?&gt;</rdfs:comment>
+        <rdfs:label xml:lang="en">arch Ontograph</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://archetype.ink/current/arch_Scribe -->
+
+    <owl:Class rdf:about="http://archetype.ink/current/arch_Scribe">
+        <rdfs:subClassOf rdf:resource="http://erlangen-crm.org/current/E21_Person"/>
+        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
+        <rdfs:comment xml:lang="en">Scope note:
+         A historical person, presumed or identified, responsible for writing text on an object in some way at some point in time.
+
+         Examples:
+         - Eadwig Basan, the eleventh-century English scribe who wrote the main part of London, British Library, Arundel MS 155.</rdfs:comment>
+        <rdfs:label xml:lang="en">arch Scribe</rdfs:label>
     </owl:Class>
     
 
@@ -7314,73 +7383,6 @@ Examples:
             - The area referred to as ‘verso of the title page of the Library of Congress’s copy of the 1st edition of the novel entitled ‘Da Vinci Code’</rdfs:comment>
         <rdfs:label xml:lang="en">F9 Place</rdfs:label>
         <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F9</skos:notation>
-    </owl:Class>
-    
-
-
-    <!-- http://http://archetype.ink/current/arch_Current_Item -->
-
-    <owl:Class rdf:about="http://http://archetype.ink/current/arch_Current_Item">
-        <rdfs:subClassOf rdf:resource="http://erlangen-crm.org/efrbroo/F4_Manifestation_Singleton"/>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/bibma/Manuscript"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P46_is_composed_of"/>
-                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
-                <owl:onClass rdf:resource="http://http://archetype.ink/current/arch_Item_Part"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
-        <rdfs:comment xml:lang="en">Scope notes:
-         This class comprises text-bearing objects (F4 Manifestation Singletons) as they exist today, for instance in a library or museum. The codicological structure of the Current Item may be different from that of the object as it was first produced (the arch Historical Item), in which case the different codicological units can be modelled by the arch Item Part.
-
-         Examples:
-         - The manuscript known as Cambridge, Corpus Christi College MS 162, which is made up of what was once two different manuscripts.</rdfs:comment>
-        <rdfs:label xml:lang="en">arch Current Item</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://http://archetype.ink/current/arch_Historical_Item -->
-
-    <owl:Class rdf:about="http://http://archetype.ink/current/arch_Historical_Item">
-        <rdfs:subClassOf rdf:resource="http://erlangen-crm.org/efrbroo/F4_Manifestation_Singleton"/>
-        <rdfs:subClassOf rdf:resource="https://w3id.org/bibma/Manuscript"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P46_is_composed_of"/>
-                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
-                <owl:onClass rdf:resource="http://http://archetype.ink/current/arch_Item_Part"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
-        <rdfs:comment xml:lang="en">Scope notes:
-         This class comprises text-bearing objects (F4 Manifestation Singletons) as they existed at some point in the past, for instance after their production (E12) but before any substantial codicological modification. The codicological structure of the Historical Item may therefore be different from that of the object as it exists today (the arch Current Item), in which case the different codicological units can be modelled by the arch Item Part.
-
-         Examples:
-         - The book of homilies produced in the eleventh century, described by Gneuss, Handlist no. 50, and now comprising Cambridge, Corpus Christi College MS 162, pp. 1–138 + 161–564.</rdfs:comment>
-        <rdfs:label xml:lang="en">arch Historical Item</rdfs:label>
-    </owl:Class>
-    
-
-
-    <!-- http://http://archetype.ink/current/arch_Item_Part -->
-
-    <owl:Class rdf:about="http://http://archetype.ink/current/arch_Item_Part">
-        <rdfs:subClassOf rdf:resource="https://w3id.org/bibma/Folio_Extent"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://erlangen-crm.org/current/P56_bears_feature"/>
-                <owl:someValuesFrom rdf:resource="http://archetype.ink/current/arch_Graph"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <dc:creator rdf:resource="http://orcid.org/0000-0002-9060-9340"/>
-        <rdfs:comment xml:lang="en">Scope notes:
-         This class comprises codicological units (bibma Folio Extent) which once made up arch Current Item and arch Historical Items. This is a physical part of the object which normally comprises the different parts of a Historical Item that were broken up and rearranged to form a Current Item. If no such codicological modification occurred then the Item Part comprises the extent of the entire Historical Item (and, by definition therefore, the Current Item).
-
-         Examples:
-         - The Current Item Cambridge, Corpus Christi College MS 162, comprises two Item Parts: one is pp. 1–138 + 161–564 which were once part of a book of homilies, and the other is pp. 138-160 which were once part of a copy of the Hexameron.</rdfs:comment>
-        <rdfs:label xml:lang="en">arch Item Part</rdfs:label>
     </owl:Class>
     
 
