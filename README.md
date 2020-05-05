@@ -8,3 +8,7 @@ This is a work in progress. Comments and suggestions are welcome.
 Peter A. Stokes
 
 École Pratique des Hautes Études – Université PSL
+
+---
+
+![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png) This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/) (necessarily restrictive due to licences of Erlangen and Biblissima sources).
