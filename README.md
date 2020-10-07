@@ -12,7 +12,8 @@ This is a work in progress. Comments and suggestions are welcome.
 
 Peter A. Stokes
 
-École Pratique des Hautes Études – Université PSL
+École Pratique des Hautes Études – Université PSL\
+Archéologie et Philologie d’Orient et d’Occident (UMR 8546)
 
 ---
 
