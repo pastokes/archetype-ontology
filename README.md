@@ -1,4 +1,5 @@
 # The Archetype Ontology
+[![DOI](https://zenodo.org/badge/260433282.svg)](https://zenodo.org/badge/latestdoi/260433282)
 
 An implementation of a formal ontology for the Archetype model of writing.
 
